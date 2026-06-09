@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be There for a Child Who Has No One | Volunteer as a CASA Advocate</title>
+<meta name="description" content="Some kids in foster care have no steady adult in their corner. You can be the one who stays. A few hours a month changes a child's whole story. Start in 60 seconds.">
+
+<!-- ============================================================
+     TRACKING — GA4 + Google Ads + Procure click-source capture
+     TODO: replace GA4_ID and ADS_ID below before going live.
+     The pm_attr capture works with or without those IDs.
+     ============================================================ -->
+<script>
+(function(){
+  var GA4_ID = "G-NXCZL4H6H1";   // oneconstantvoice.org GA4
+  var ADS_ID = "AW-17934471659"; // shared Procure Google Ads account
+  if (GA4_ID.indexOf("X") === -1 || ADS_ID.indexOf("X") === -1){
+    var s=document.createElement('script'); s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA4_ID; document.head.appendChild(s);
+  }
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){dataLayer.push(arguments);};
+  gtag('js', new Date());
+  if (GA4_ID.indexOf("X") === -1) gtag('config', GA4_ID);
+  if (ADS_ID.indexOf("X") === -1) gtag('config', ADS_ID);
+})();
+</script>
+<!-- Procure click-source capture: stores gclid/UTM on landing, attaches to the form -->
+<script>
+(function(){
+  try{
+    var qs = new URLSearchParams(window.location.search);
+    var keys = ['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+    var store = {};
+    try{ var c=(document.cookie.match(/(?:^|; )pm_attr=([^;]*)/)||[])[1]; if(c) store=JSON.parse(decodeURIComponent(c))||{}; }catch(e){ store={}; }
+    var got=false;
+    keys.forEach(function(k){ var v=qs.get(k); if(v){ store[k]=v; got=true; } });
+    if(got || !store.landing){
+      if(!store.landing) store.landing=window.location.pathname;
+      if(!store.referrer) store.referrer=document.referrer||'';
+      document.cookie='pm_attr='+encodeURIComponent(JSON.stringify(store))+'; path=/; max-age=7776000; SameSite=Lax';
+    }
+    function fill(){
+      var f=document.querySelector('form[data-lead]'); if(!f) return;
+      Object.keys(store).forEach(function(k){
+        if(store[k] && !f.querySelector('[name="'+k+'"]')){
+          var i=document.createElement('input'); i.type='hidden'; i.name=k; i.value=store[k]; f.appendChild(i);
+        }
+      });
+    }
+    if(document.readyState!=='loading') fill(); else document.addEventListener('DOMContentLoaded', fill);
+  }catch(e){}
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#13243f;--teal:#1f8a7a;--teal-dk:#176b5f;--coral:#ff6a4d;--coral-dk:#e8512f;
+    --gold:#f7b733;--cream:#fcf8f2;--ink:#1d2433;--muted:#5d6675;--line:#e7e1d6;
+    --radius:16px;--shadow:0 18px 50px -20px rgba(19,36,63,.35);--maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.1;color:var(--navy);font-weight:600}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:1rem;padding:15px 28px;border-radius:999px;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:0 10px 24px -8px rgba(255,106,77,.7)}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--coral-dk)}
+  .eyebrow{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;color:var(--teal-dk)}
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces';font-weight:700;font-size:1.25rem;color:var(--navy)}
+  .brand .dot{width:13px;height:13px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(31,138,122,.2)}
+  .nav-links{display:flex;gap:28px;align-items:center;font-size:.95rem;font-weight:500;color:var(--muted)}
+  .nav-links a:hover{color:var(--navy)}
+  .nav .btn{padding:11px 22px;font-size:.92rem}
+  @media(max-width:860px){.nav-links{display:none}}
+  .hero{position:relative;background:linear-gradient(180deg,rgba(19,36,63,.55),rgba(19,36,63,.78)),url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1600&q=80') center/cover;color:#fff;padding:96px 0 108px}
+  .hero h1{color:#fff;font-size:clamp(2.4rem,5.4vw,4.05rem);max-width:15ch}
+  .hero .lede{font-size:clamp(1.05rem,2vw,1.32rem);max-width:44ch;margin:22px 0 30px;color:#eef2f6}
+  .hero .eyebrow{color:var(--gold)}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-note{margin-top:18px;font-size:.9rem;color:#d4dbe6;display:flex;align-items:center;gap:8px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+  .lead-card{background:#fff;color:var(--ink);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+  .lead-card h3{font-size:1.4rem;margin-bottom:4px}
+  .lead-card p.sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);margin-bottom:5px}
+  .field input,.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:.95rem;background:var(--cream)}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--teal);background:#fff}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .lead-card .btn-primary{width:100%;justify-content:center;margin-top:6px}
+  .trust-line{font-size:.78rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.4}
+  .tcpa{display:block;margin-top:14px;font-size:.68rem;line-height:1.5;color:#9aa3b0}
+  .stats{background:var(--cream);border-bottom:1px solid var(--line)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:34px 24px;text-align:center}
+  .stat .num{font-family:'Fraunces';font-weight:700;font-size:2.2rem;color:var(--teal-dk);line-height:1}
+  .stat .lab{font-size:.9rem;color:var(--muted);margin-top:6px}
+  @media(max-width:760px){.stats .wrap{grid-template-columns:1fr 1fr}}
+  section.block{padding:84px 0}
+  .center{text-align:center;max-width:60ch;margin:0 auto}
+  section h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
+  .sub-lead{color:var(--muted);font-size:1.1rem;margin-top:14px}
+  .constant{background:var(--navy);color:#fff}
+  .constant h2{color:#fff}.constant .sub-lead{color:#c3cdde}
+  .change-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+  .change-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px;text-align:center}
+  .change-card.stay{background:var(--teal);border-color:var(--teal)}
+  .change-card .ico{font-size:1.9rem;margin-bottom:10px}
+  .change-card h4{font-family:'Fraunces';font-size:1.05rem;color:#fff;margin-bottom:6px}
+  .change-card p{font-size:.86rem;color:#cdd6e4}.change-card.stay p{color:#fff;opacity:.95}
+  @media(max-width:760px){.change-grid{grid-template-columns:1fr 1fr}}
+  .do-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px}
+  .do-card{border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:#fff;transition:box-shadow .2s,transform .2s}
+  .do-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+  .do-card .ico{width:50px;height:50px;border-radius:12px;background:#e6f6f1;color:var(--teal-dk);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px}
+  .do-card h3{font-size:1.2rem;margin-bottom:8px}.do-card p{color:var(--muted);font-size:.96rem}
+  @media(max-width:820px){.do-grid{grid-template-columns:1fr}}
+  .reveal{background:var(--cream)}
+  .reveal-inner{display:grid;grid-template-columns:.9fr 1.1fr;gap:46px;align-items:center}
+  @media(max-width:820px){.reveal-inner{grid-template-columns:1fr}}
+  .reveal-badge{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);text-align:center}
+  .reveal-badge .big{font-family:'Fraunces';font-weight:700;font-size:3rem;color:var(--teal-dk);line-height:1}
+  .reveal-badge .small{color:var(--muted);font-size:.95rem;margin-top:8px}
+  .reveal h2 span{color:var(--teal-dk)}
+  .elig-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:46px;align-items:start}
+  @media(max-width:820px){.elig-grid{grid-template-columns:1fr}}
+  .elig-list{list-style:none}
+  .elig-list li{display:flex;gap:12px;padding:13px 0;border-bottom:1px dashed var(--line);font-size:1rem}
+  .elig-list li .yes{color:var(--teal-dk);font-weight:700;flex-shrink:0}
+  .commit-box{background:var(--navy);color:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .commit-box h3{font-size:1.3rem;margin-bottom:18px;color:#fff}
+  .commit-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+  .commit-item .b{font-family:'Fraunces';font-weight:700;color:var(--gold);font-size:1.4rem;line-height:1;min-width:84px}
+  .commit-item .t strong{display:block;color:#fff}.commit-item .t span{font-size:.9rem;color:#c3cdde}
+  .quote{background:linear-gradient(135deg,var(--teal),var(--gold));color:#fff;border-radius:24px;padding:56px;text-align:center;max-width:880px;margin:0 auto;box-shadow:var(--shadow)}
+  .quote p{font-family:'Fraunces';font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:500;line-height:1.3}
+  .quote .who{margin-top:22px;font-weight:600;font-size:.95rem;opacity:.95}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:50px}
+  .step{position:relative;padding-top:14px}
+  .step .n{width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces';font-weight:700;margin-bottom:14px}
+  .step h4{font-size:1rem;font-family:'Fraunces';color:var(--navy);margin-bottom:5px}
+  .step p{font-size:.85rem;color:var(--muted)}
+  .step:not(:last-child)::after{content:"";position:absolute;top:35px;left:46px;right:-8px;height:2px;background:var(--line)}
+  @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}.step::after{display:none}}
+  details{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:#fff;overflow:hidden}
+  details summary{cursor:pointer;padding:18px 22px;font-weight:600;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:1.02rem}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";font-size:1.5rem;color:var(--teal);font-weight:400}
+  details[open] summary::after{content:"–"}
+  details .ans{padding:0 22px 20px;color:var(--muted);font-size:.97rem}
+  .final{background:var(--navy);color:#fff;text-align:center;padding:90px 0}
+  .final h2{color:#fff;font-size:clamp(2rem,4vw,3rem)}
+  .final p{color:#c3cdde;font-size:1.15rem;margin:18px auto 30px;max-width:48ch}
+  footer{background:#0b1830;color:#9fb0ca;font-size:.9rem;padding:48px 0 28px}
+  footer .cols{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:28px}
+  footer .brand{color:#fff}footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span>One Constant Voice</div>
+    <nav class="nav-links">
+      <a href="#why">The problem</a>
+      <a href="#do">What you'd do</a>
+      <a href="#program">Is this legit?</a>
+      <a href="#fit">Could you?</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#start" class="btn btn-primary">Start now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Volunteer to change a child's life</span>
+      <h1>Be the one who stays.</h1>
+      <p class="lede">Right now, a child near you is moving through foster care with no steady adult in their corner. You don't need to foster them or adopt them. You just need to show up — and keep showing up. <strong style="color:#fff">Be their constant.</strong></p>
+      <div class="hero-cta">
+        <a href="#start" class="btn btn-primary">Show up for a child →</a>
+        <a href="#do" class="btn" style="background:rgba(255,255,255,.14);color:#fff">What's involved?</a>
+      </div>
+      <div class="hero-note">⏱ 60 seconds to start. A real child — not a form — needs you to just begin.</div>
+    </div>
+
+    <div class="lead-card" id="start">
+      <h3>Start with a hello</h3>
+      <p class="sub">Tell us a little about you. We'll invite you to a free, no-pressure info session near <span id="lead-region"></span>.</p>
+      <form data-lead action="https://procure-lead-engine.dan-fda.workers.dev/submit" method="POST">
+        <input type="hidden" name="lead_source" value="oneconstantvoice.org">
+        <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_redirect" value="https://oneconstantvoice.org/thank-you">
+        <div class="row2">
+          <div class="field"><label>First name</label><input required name="first_name" placeholder="Jordan"></div>
+          <div class="field"><label>Last name</label><input required name="last_name" placeholder="Rivera"></div>
+        </div>
+        <input type="hidden" name="name" id="full_name">
+        <div class="field"><label>Email</label><input required type="email" name="email" placeholder="you@email.com"></div>
+        <div class="row2">
+          <div class="field"><label>Phone</label><input required type="tel" name="phone" placeholder="(208) 555-0142" inputmode="tel" pattern="[\d\s\-\(\)\.]{10,20}"></div>
+          <div class="field"><label>ZIP code</label><input required name="zip" placeholder="83702"></div>
+        </div>
+        <div class="field"><label>Why now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea name="message" rows="2" placeholder="A few words…"></textarea></div>
+        <button class="btn btn-primary" type="submit">Yes, tell me how to help</button>
+        <p class="trust-line">🔒 No spam, no sales list. This connects you with a trusted local children's advocacy program.</p>
+        <span class="tcpa">By submitting, you agree to be contacted by phone, text, or email about volunteering. Consent is not a condition of any service. Message/data rates may apply. See our <a href="/privacy-policy.html" style="color:var(--teal-dk)">Privacy Policy</a> and <a href="/terms.html" style="color:var(--teal-dk)">Terms</a>.</span>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="num">390k+</div><div class="lab">children are in foster care in the U.S.</div></div>
+    <div class="stat"><div class="num">~50%</div><div class="lab">who need a volunteer advocate don't have one</div></div>
+    <div class="stat"><div class="num">A few hrs</div><div class="lab">a month is all it takes to be someone's constant</div></div>
+    <div class="stat"><div class="num">1</div><div class="lab">steady adult dramatically improves a child's odds</div></div>
+  </div>
+</div>
+
+<section class="block constant" id="why">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow" style="color:var(--gold)">Why a child needs you</span>
+      <h2>Imagine losing everything familiar — at eight years old.</h2>
+      <p class="sub-lead">That's foster care for a lot of kids. The people meant to protect them keep changing. What they're missing isn't another professional. It's one person who simply doesn't leave.</p>
+    </div>
+    <div class="change-grid">
+      <div class="change-card"><div class="ico">🏠</div><h4>Home changes</h4><p>New placements, new rules, new strangers.</p></div>
+      <div class="change-card"><div class="ico">🎒</div><h4>School changes</h4><p>New teachers, lost friends, broken routines.</p></div>
+      <div class="change-card"><div class="ico">📋</div><h4>The adults change</h4><p>Caseworkers turn over. Their story restarts.</p></div>
+      <div class="change-card stay"><div class="ico">🫶</div><h4>You stay</h4><p>One steady person, for as long as they need you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="do">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">What being a constant looks like</span>
+      <h2>It's simpler than you'd think</h2>
+      <p class="sub-lead">You're not a foster parent or a therapist. You're a trained, caring adult who gets to know one child and makes sure the grown-ups making decisions actually see them.</p>
+    </div>
+    <div class="do-grid">
+      <div class="do-card"><div class="ico">☕</div><h3>Spend real time</h3><p>Visit a child regularly — a walk, a milkshake, a conversation. Become a familiar, safe face.</p></div>
+      <div class="do-card"><div class="ico">👂</div><h3>Listen &amp; learn</h3><p>Get to know what they need from the people in their life — teachers, doctors, family.</p></div>
+      <div class="do-card"><div class="ico">📣</div><h3>Make sure they're heard</h3><p>Carry their voice to the adults and the court deciding their future, so they're never overlooked.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block reveal" id="program">
+  <div class="wrap">
+    <div class="reveal-inner">
+      <div class="reveal-badge">
+        <div class="big">CASA</div>
+        <div class="small">Court Appointed Special Advocates — a nationally recognized program, in <span class="region-region"></span> run by <span class="region-name"></span>.</div>
+      </div>
+      <div>
+        <span class="eyebrow">So what is this, exactly?</span>
+        <h2>This role has a name: a <span>CASA volunteer</span>.</h2>
+        <p class="sub-lead">"Being a child's constant" isn't a nice idea — it's a real, established role. CASA volunteers are everyday people, appointed by a judge and backed by professional staff, who advocate for one child's best interest. The program has supported children for over 45 years, with local programs in 49 states.</p>
+        <p style="margin-top:16px;color:var(--muted)">You'll be fully trained, never alone, and supported by a coordinator every step of the way. The mission is simple; the structure behind you is serious.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="fit">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Could this be you?</span>
+      <h2>If you can care and keep showing up, yes.</h2>
+      <p class="sub-lead">No law degree. No social-work background. No prior experience. We train you for everything else.</p>
+    </div>
+    <div class="elig-grid">
+      <ul class="elig-list">
+        <li><span class="yes">✓</span> You're 21 or older</li>
+        <li><span class="yes">✓</span> You can pass a background check</li>
+        <li><span class="yes">✓</span> You can give a few hours a month</li>
+        <li><span class="yes">✓</span> You'll stay with one child for the long haul (continuity is the point)</li>
+        <li><span class="yes">✓</span> You're a good listener who can stay objective</li>
+        <li><span class="yes">✓</span> <strong>No</strong> special degree or experience needed</li>
+      </ul>
+      <div class="commit-box">
+        <h3>The honest time commitment</h3>
+        <div class="commit-item"><div class="b">60 sec</div><div class="t"><strong>Say "I'm interested"</strong><span>The form above — that's all we're asking today.</span></div></div>
+        <div class="commit-item"><div class="b">1 hr</div><div class="t"><strong>Free info session</strong><span>Meet the team, ask anything, decide for yourself.</span></div></div>
+        <div class="commit-item"><div class="b">~30 hrs</div><div class="t"><strong>Training</strong><span>Flexible classes that prepare you completely.</span></div></div>
+        <div class="commit-item"><div class="b">A few hrs<span style="font-size:.7rem">/mo</span></div><div class="t"><strong>Then you show up</strong><span>Supported by staff the entire way.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="quote">
+      <p>"I almost didn't fill out the form — I figured someone more qualified should do it. Turns out the only qualification that mattered was not leaving."</p>
+      <div class="who">— A volunteer, one year in</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="how">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">From "I'm interested" to making a difference</span>
+      <h2>Five steps, a real guide at each one</h2>
+      <p class="sub-lead">You can stop anytime. Most people, once they meet the team, don't want to.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h4>Info session</h4><p>A free, no-pressure hour to see how it works.</p></div>
+      <div class="step"><div class="n">2</div><h4>Apply</h4><p>Short application plus a background check.</p></div>
+      <div class="step"><div class="n">3</div><h4>Interview</h4><p>A friendly chat about your "why."</p></div>
+      <div class="step"><div class="n">4</div><h4>Train</h4><p>~30 hours that prepare you completely.</p></div>
+      <div class="step"><div class="n">5</div><h4>Get matched</h4><p>Meet your coordinator and your first child.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq" style="background:var(--cream)">
+  <div class="wrap" style="max-width:780px">
+    <div class="center" style="margin-bottom:40px">
+      <span class="eyebrow">Honest answers</span>
+      <h2>What people ask before they say yes</h2>
+    </div>
+    <details><summary>Wait — is this fostering or adopting?</summary><div class="ans">No. The child stays in their placement. You're a volunteer advocate who spends time with them and speaks up for their best interest — a few hours a month, not a guardianship.</div></details>
+    <details><summary>I have a full-time job. Is this realistic?</summary><div class="ans">Absolutely — most volunteers work full time. The hours are flexible and built around your schedule.</div></details>
+    <details><summary>Am I actually qualified to do this?</summary><div class="ans">Almost certainly. There's no degree or experience requirement. If you're a caring adult who can commit and complete the training, you're exactly who kids need.</div></details>
+    <details><summary>What's "CASA," and is it legit?</summary><div class="ans">CASA stands for Court Appointed Special Advocates — a nationally recognized program operating for 45+ years across 49 states. Locally it's run by <span class="region-name"></span>. You're appointed by a judge and backed by professional staff.</div></details>
+    <details><summary>Isn't this emotionally hard?</summary><div class="ans">It can be — but you're never alone. A trained coordinator and a community of volunteers support you, and you'll see firsthand that your presence is genuinely changing a child's trajectory.</div></details>
+    <details><summary>What happens after I fill out the form?</summary><div class="ans">Someone from your local program reaches out within 1–2 business days to invite you to an info session. No obligation — just a conversation.</div></details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>A child is waiting for someone to stay.</h2>
+    <p>It starts with 60 seconds and the willingness to begin. You're more ready than you think.</p>
+    <a href="#start" class="btn btn-primary">Be their constant →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div style="max-width:320px">
+        <div class="brand" style="font-family:'Fraunces';font-weight:700;font-size:1.2rem;margin-bottom:10px">One Constant Voice</div>
+        <p>Helping caring adults become the one steady presence in a foster child's life — in partnership with local CASA &amp; child-advocacy programs.</p>
+      </div>
+      <div>
+        <strong style="color:#fff;display:block;margin-bottom:8px">Explore</strong>
+        <div><a href="#why">Why a child needs you</a></div>
+        <div><a href="#do">What you'd do</a></div>
+        <div><a href="#program">Is this legit?</a></div>
+        <div><a href="#faq">FAQ</a></div>
+      </div>
+      <div>
+        <strong style="color:#fff;display:block;margin-bottom:8px">Your local program</strong>
+        <div id="foot-program"></div>
+        <div id="foot-counties"></div>
+        <div id="foot-phone"></div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:.8rem;color:#7c8eaa">
+      CASA® and the CASA name/logo are trademarks of the National CASA/GAL Association for Children. This is an independent volunteer-recruitment page operated in partnership with local programs. © <span id="yr"></span> One Constant Voice.
+    </div>
+  </div>
+</footer>
+
+<script>
+/* REGION CONFIG — change only this block to launch a new market */
+const CONFIG = {
+  regionName:  "Idaho's 4th Judicial District",
+  shortRegion: "the Treasure Valley, Idaho",
+  programName: "Family Advocates",
+  counties:    "Serving Ada, Boise, Elmore & Valley Counties",
+  phone:       "(208) 345-3344",
+};
+document.getElementById('lead-region').textContent = CONFIG.shortRegion;
+document.getElementById('foot-program').textContent = CONFIG.programName;
+document.getElementById('foot-counties').textContent = CONFIG.counties;
+document.getElementById('foot-phone').textContent = CONFIG.phone;
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.querySelectorAll('.region-name').forEach(el => el.textContent = CONFIG.programName);
+document.querySelectorAll('.region-region').forEach(el => el.textContent = CONFIG.regionName);
+
+/* phone formatting + combine first/last into the engine's `name` field */
+document.addEventListener('DOMContentLoaded', function(){
+  var p = document.querySelector('input[name="phone"]');
+  if(p){ p.addEventListener('input', function(e){
+    var v=e.target.value.replace(/\D/g,'').slice(0,10);
+    if(v.length>6) e.target.value='('+v.slice(0,3)+') '+v.slice(3,6)+'-'+v.slice(6);
+    else if(v.length>3) e.target.value='('+v.slice(0,3)+') '+v.slice(3);
+    else if(v.length>0) e.target.value='('+v;
+  }); }
+  var form=document.querySelector('form[data-lead]');
+  if(form){ form.addEventListener('submit', function(){
+    var fn=(form.first_name.value||'').trim(), ln=(form.last_name.value||'').trim();
+    document.getElementById('full_name').value=(fn+' '+ln).trim();
+    if(window.gtag) gtag('event','generate_lead',{event_category:'form',event_label:'oneconstantvoice'});
+  }); }
+});
+</script>
+</body>
+</html>

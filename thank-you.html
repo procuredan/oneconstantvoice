@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — You've Taken the First Step | One Constant Voice</title>
+<meta name="robots" content="noindex">
+<script>
+(function(){
+  var GA4_ID="G-NXCZL4H6H1", ADS_ID="AW-17934471659", ADS_LABEL="XXXXXXXXXXXXXXXXXX"; // GA4 + shared Ads set; ADS_LABEL pending a conversion action
+  if(GA4_ID.indexOf("X")===-1){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA4_ID;document.head.appendChild(s);}
+  window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());
+  if(GA4_ID.indexOf("X")===-1) gtag('config',GA4_ID);
+  if(ADS_ID.indexOf("X")===-1) gtag('config',ADS_ID);
+  gtag('event','generate_lead',{event_category:'form',event_label:'oneconstantvoice'});
+  if(ADS_ID.indexOf("X")===-1 && ADS_LABEL.indexOf("X")===-1) gtag('event','conversion',{send_to:ADS_ID+'/'+ADS_LABEL});
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#13243f;--teal:#1f8a7a;--teal-dk:#176b5f;--coral:#ff6a4d;--cream:#fcf8f2;--ink:#1d2433;--muted:#5d6675;--line:#e7e1d6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+  h1,h2{font-family:'Fraunces',serif;color:var(--navy)}
+  .card{background:#fff;max-width:620px;width:100%;border-radius:22px;padding:48px;box-shadow:0 18px 50px -20px rgba(19,36,63,.35);text-align:center}
+  .check{width:74px;height:74px;border-radius:50%;background:#e6f6f1;color:var(--teal-dk);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:2.4rem}
+  h1{font-size:2.1rem;margin-bottom:12px}
+  .lead{color:var(--muted);font-size:1.1rem;margin-bottom:28px}
+  .box{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:24px;text-align:left;margin-bottom:28px}
+  .box h2{font-size:1.1rem;margin-bottom:14px}
+  .box ol{margin:0;padding-left:20px;color:var(--ink)}
+  .box li{margin-bottom:10px}
+  .box li strong{color:var(--navy)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding:14px 26px;border-radius:999px;background:var(--coral);color:#fff;text-decoration:none}
+  .sub{margin-top:18px;font-size:.85rem;color:var(--muted)}
+  a{color:var(--teal-dk)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">✓</div>
+    <h1>That took courage. Thank you.</h1>
+    <p class="lead">You've just taken the first step toward becoming the one constant in a child's life. We've received your information.</p>
+    <div class="box">
+      <h2>What happens next</h2>
+      <ol>
+        <li><strong>We'll reach out</strong> within 1–2 business days — by phone, text, or email.</li>
+        <li><strong>You'll be invited</strong> to a free, no-pressure info session to learn how it works and ask anything.</li>
+        <li><strong>You decide</strong> — there's no obligation. It's just a conversation about showing up for a child.</li>
+      </ol>
+    </div>
+    <a class="btn" href="/">← Back to home</a>
+    <p class="sub">Questions in the meantime? Reach your local program, <span id="foot-program"></span>, at <span id="foot-phone"></span>.</p>
+  </div>
+<script>
+  var CONFIG={programName:"Family Advocates",phone:"(208) 345-3344"};
+  document.getElementById('foot-program').textContent=CONFIG.programName;
+  document.getElementById('foot-phone').textContent=CONFIG.phone;
+</script>
+</body>
+</html>
