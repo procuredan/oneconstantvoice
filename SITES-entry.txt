@@ -1,0 +1,7 @@
+  "oneconstantvoice.org": {
+    brand: "One Constant Voice",
+    inbox: "dan@procuremedia.com",
+    thankyou: "https://oneconstantvoice.org/thank-you",
+    type: "nonprofit",
+    vertical_label: "CASA volunteer recruiting",
+  },

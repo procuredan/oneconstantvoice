@@ -26,12 +26,22 @@
   if (ADS_ID.indexOf("X") === -1) gtag('config', ADS_ID);
 })();
 </script>
-<!-- Procure click-source capture: stores gclid/UTM on landing, attaches to the form -->
+<!-- Meta Pixel — PageView (Lead fires on the thank-you page) -->
+<script>
+(function(){
+  var PIXEL_ID = "XXXXXXXXXXXXXXX"; // TODO: real Meta Pixel/dataset ID
+  if (PIXEL_ID.indexOf("X") !== -1) return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID);
+  fbq('track', 'PageView');
+})();
+</script>
+<!-- Procure click-source capture: stores gclid/UTM/fbclid on landing, attaches to the form -->
 <script>
 (function(){
   try{
     var qs = new URLSearchParams(window.location.search);
-    var keys = ['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+    var keys = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
     var store = {};
     try{ var c=(document.cookie.match(/(?:^|; )pm_attr=([^;]*)/)||[])[1]; if(c) store=JSON.parse(decodeURIComponent(c))||{}; }catch(e){ store={}; }
     var got=false;
@@ -46,6 +56,14 @@
       Object.keys(store).forEach(function(k){
         if(store[k] && !f.querySelector('[name="'+k+'"]')){
           var i=document.createElement('input'); i.type='hidden'; i.name=k; i.value=store[k]; f.appendChild(i);
+        }
+      });
+      // Meta cookies for server-side Conversions API match (fbp always; fbc when from an fb ad click)
+      ['_fbp','_fbc'].forEach(function(cn){
+        var m=(document.cookie.match(new RegExp('(?:^|; )'+cn+'=([^;]*)'))||[])[1];
+        var nm=cn.slice(1);
+        if(m && !f.querySelector('[name="'+nm+'"]')){
+          var i=document.createElement('input'); i.type='hidden'; i.name=nm; i.value=decodeURIComponent(m); f.appendChild(i);
         }
       });
     }
@@ -277,6 +295,21 @@
   </div>
 </section>
 
+<section class="block" id="partnership" style="background:#fff">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">A real partnership</span>
+      <h2>Who One Constant Voice is</h2>
+      <p class="sub-lead">We're a volunteer-recruitment partner for local CASA programs. We exist to help them solve their hardest problem — finding the advocates that children are waiting for.</p>
+    </div>
+    <div style="max-width:760px;margin:38px auto 0;background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:34px;text-align:center">
+      <p style="font-size:1.1rem;color:var(--ink)">One Constant Voice partners with <strong><span class="region-name"></span></strong> — the CASA program serving <span class="region-region"></span> — to connect caring people like you with the training that turns them into a child's constant.</p>
+      <p style="margin-top:16px;color:var(--muted)">When you raise your hand here, your information goes straight to <span class="region-name"></span>. Their team — real people, not a call center — follows up to invite you to a free video info session. We simply help more people find their way to them.</p>
+      <a id="partner-link" href="https://www.familyadvocates.org/casa" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px;font-weight:600;color:var(--teal-dk)">Learn more about <span class="region-name"></span> →</a>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="fit">
   <div class="wrap">
     <div class="center">
@@ -386,6 +419,7 @@ const CONFIG = {
   regionName:  "Idaho's 4th Judicial District",
   shortRegion: "the Treasure Valley, Idaho",
   programName: "Family Advocates",
+  programUrl:  "https://www.familyadvocates.org/casa",
   counties:    "Serving Ada, Boise, Elmore & Valley Counties",
   phone:       "(208) 345-3344",
 };
@@ -396,6 +430,7 @@ document.getElementById('foot-phone').textContent = CONFIG.phone;
 document.getElementById('yr').textContent = new Date().getFullYear();
 document.querySelectorAll('.region-name').forEach(el => el.textContent = CONFIG.programName);
 document.querySelectorAll('.region-region').forEach(el => el.textContent = CONFIG.regionName);
+var partnerLink = document.getElementById('partner-link'); if (partnerLink && CONFIG.programUrl) partnerLink.href = CONFIG.programUrl;
 
 /* phone formatting + combine first/last into the engine's `name` field */
 document.addEventListener('DOMContentLoaded', function(){

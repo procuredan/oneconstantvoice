@@ -16,6 +16,17 @@
   if(ADS_ID.indexOf("X")===-1 && ADS_LABEL.indexOf("X")===-1) gtag('event','conversion',{send_to:ADS_ID+'/'+ADS_LABEL});
 })();
 </script>
+<!-- Meta Pixel — fires Lead on the thank-you page (a confirmed submission) -->
+<script>
+(function(){
+  var PIXEL_ID = "XXXXXXXXXXXXXXX"; // TODO: real Meta Pixel/dataset ID (same as index.html)
+  if (PIXEL_ID.indexOf("X") !== -1) return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID);
+  fbq('track', 'PageView');
+  fbq('track', 'Lead');
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{--navy:#13243f;--teal:#1f8a7a;--teal-dk:#176b5f;--coral:#ff6a4d;--cream:#fcf8f2;--ink:#1d2433;--muted:#5d6675;--line:#e7e1d6}
