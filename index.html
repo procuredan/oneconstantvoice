@@ -187,7 +187,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="brand"><span class="dot"></span>One Constant Voice</div>
+    <div class="brand"><img src="/ocv-logo.png" alt="One Constant Voice" width="36" height="36" style="display:block;border-radius:50%">One Constant Voice</div>
     <nav class="nav-links">
       <a href="#why">The problem</a>
       <a href="#do">What you'd do</a>
@@ -230,7 +230,10 @@
           <div class="field"><label>ZIP code</label><input required name="zip" placeholder="83702"></div>
         </div>
         <div class="field"><label>Why now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea name="message" rows="2" placeholder="A few words…"></textarea></div>
-        <button class="btn btn-primary" type="submit">Yes, tell me how to help</button>
+        <!-- Spam protection: Cloudflare Turnstile (safe/hidden until a sitekey is set) -->
+<div class="cf-turnstile" data-sitekey="" data-size="flexible" style="margin:0 0 12px"></div>
+<script>(function(){var d=document.currentScript.previousElementSibling,k=d&&d.getAttribute('data-sitekey');if(k&&k.indexOf('{{')<0&&k.length>5){var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=s.defer=true;document.head.appendChild(s);}else if(d){d.style.display='none';}})();</script>
+<button class="btn btn-primary" type="submit">Yes, tell me how to help</button>
         <p class="trust-line">🔒 No spam, no sales list. This connects you with a trusted local children's advocacy program.</p>
         <span class="tcpa">By submitting, you agree to be contacted by phone, text, or email about volunteering. Consent is not a condition of any service. Message/data rates may apply. See our <a href="/privacy-policy.html" style="color:var(--teal-dk)">Privacy Policy</a> and <a href="/terms.html" style="color:var(--teal-dk)">Terms</a>.</span>
       </form>
