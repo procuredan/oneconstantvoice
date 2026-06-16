@@ -234,11 +234,9 @@
         <input type="hidden" name="name" id="full_name">
         <input type="hidden" name="pm_sid" id="pm_sid">
         <input type="hidden" name="interested" id="f_interest">
-        <input type="hidden" name="time_commitment" id="f_time">
-        <input type="hidden" name="area" id="f_area">
 
         <div class="ms-prog"><div class="ms-prog-fill" id="msFill"></div></div>
-        <div class="ms-meta"><span id="msStepLabel">Question 1 of 3</span><a href="#" class="ms-back" id="msBack" hidden>← Back</a></div>
+        <div class="ms-meta"><span id="msStepLabel">Question 1</span><a href="#" class="ms-back" id="msBack" hidden>← Back</a></div>
 
         <div class="ms-step" data-step="0">
           <h3>Do you want to make a difference in a child's life?</h3>
@@ -249,28 +247,6 @@
           </div>
         </div>
 
-        <div class="ms-step" data-step="1" hidden>
-          <h3>How much time do you have to give?</h3>
-          <p class="sub">Most volunteers give just a few hours a month.</p>
-          <div class="ms-opts" data-target="f_time">
-            <button type="button" class="ms-opt" data-val="A few hours a month"><span class="i">📅</span> A few hours a month</button>
-            <button type="button" class="ms-opt" data-val="A few hours a week"><span class="i">🗓️</span> A few hours a week</button>
-            <button type="button" class="ms-opt" data-val="Not sure yet"><span class="i">🤔</span> Not sure yet</button>
-          </div>
-        </div>
-
-        <div class="ms-step" data-step="2" hidden>
-          <h3>What county are you in?</h3>
-          <p class="sub">We're recruiting across the Treasure Valley right now.</p>
-          <div class="ms-opts" data-target="f_area">
-            <button type="button" class="ms-opt" data-val="Ada County"><span class="i">📍</span> Ada County</button>
-            <button type="button" class="ms-opt" data-val="Boise County"><span class="i">📍</span> Boise County</button>
-            <button type="button" class="ms-opt" data-val="Elmore County"><span class="i">📍</span> Elmore County</button>
-            <button type="button" class="ms-opt" data-val="Valley County"><span class="i">📍</span> Valley County</button>
-            <button type="button" class="ms-opt" data-val="Elsewhere in Idaho"><span class="i">🗺️</span> Elsewhere in Idaho</button>
-          </div>
-        </div>
-
         <div class="ms-decline" id="msDecline" hidden>
           <h3>That's okay.</h3>
           <p class="sub">Thank you for caring enough to consider it. If you ever change your mind, a child will still need someone — and we'll be here.</p>
@@ -278,8 +254,8 @@
         </div>
 
         <div class="ms-step" data-step="4" hidden>
-          <h3>Last step — let's connect</h3>
-          <p class="sub">We'll invite you to a free, no-pressure info session over a video call — no travel needed — for volunteers across <span id="lead-region"></span>.</p>
+          <h3>Wonderful — let's connect.</h3>
+          <p class="sub">We'll walk you through how it all works in a quick, no-pressure overview — so you can decide if it's the right fit for you.</p>
           <div class="row2">
             <div class="field"><label>First name</label><input required name="first_name" placeholder="Jordan" autocomplete="given-name"></div>
             <div class="field"><label>Last name</label><input required name="last_name" placeholder="Rivera" autocomplete="family-name"></div>
@@ -513,7 +489,7 @@ const CONFIG = {
   counties:    "Serving Ada, Boise, Elmore & Valley Counties",
   phone:       "(208) 345-3344",
 };
-document.getElementById('lead-region').textContent = CONFIG.shortRegion;
+var _lr = document.getElementById('lead-region'); if(_lr) _lr.textContent = CONFIG.shortRegion;
 document.getElementById('foot-program').textContent = CONFIG.programName;
 document.getElementById('foot-counties').textContent = CONFIG.counties;
 document.getElementById('foot-phone').textContent = CONFIG.phone;
