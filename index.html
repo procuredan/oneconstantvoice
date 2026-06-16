@@ -233,7 +233,8 @@
         <input type="hidden" name="_redirect" value="https://oneconstantvoice.org/thank-you">
         <input type="hidden" name="name" id="full_name">
         <input type="hidden" name="pm_sid" id="pm_sid">
-        <input type="hidden" name="motivation" id="f_motivation">
+        <input type="hidden" name="help_interest" id="f_help">
+        <input type="hidden" name="age_preference" id="f_age">
         <input type="hidden" name="time_commitment" id="f_time">
         <input type="hidden" name="area" id="f_area">
 
@@ -241,18 +242,29 @@
         <div class="ms-meta"><span id="msStepLabel">Question 1 of 3</span><a href="#" class="ms-back" id="msBack" hidden>← Back</a></div>
 
         <div class="ms-step" data-step="0">
-          <h3>What's pulling you toward this?</h3>
-          <p class="sub">There's no wrong answer — it just helps us get to know you.</p>
-          <div class="ms-opts" data-target="f_motivation">
-            <button type="button" class="ms-opt" data-val="I want to be there for a kid"><span class="i">🤝</span> I want to be there for a kid</button>
-            <button type="button" class="ms-opt" data-val="I have some time to give"><span class="i">⏳</span> I have some time to give</button>
-            <button type="button" class="ms-opt" data-val="I've been close to foster care"><span class="i">💛</span> I've been close to foster care</button>
-            <button type="button" class="ms-opt" data-val="My faith or values"><span class="i">🌱</span> My faith or values</button>
-            <button type="button" class="ms-opt" data-val="Just learning for now"><span class="i">🔎</span> Just learning for now</button>
+          <h3>How would you like to help?</h3>
+          <p class="sub">There's more than one way to make a difference.</p>
+          <div class="ms-opts" data-target="f_help">
+            <button type="button" class="ms-opt" data-val="Be there for a kid"><span class="i">🤝</span> Be there for a kid</button>
+            <button type="button" class="ms-opt" data-val="Help around the office"><span class="i">🗂️</span> Help around the office</button>
+            <button type="button" class="ms-opt" data-val="Help at events or fundraisers"><span class="i">🎉</span> Help at events or fundraisers</button>
+            <button type="button" class="ms-opt" data-val="Lend a professional skill"><span class="i">💡</span> Lend a professional skill</button>
+            <button type="button" class="ms-opt" data-val="Not sure yet"><span class="i">🤔</span> Not sure yet — show me where I'm needed</button>
           </div>
         </div>
 
-        <div class="ms-step" data-step="1" hidden>
+        <div class="ms-step" data-step="1a" data-cond-field="f_help" data-cond-val="Be there for a kid" hidden>
+          <h3>Who would you like to advocate for?</h3>
+          <p class="sub">Teens are who we need most right now — but every age needs someone.</p>
+          <div class="ms-opts" data-target="f_age">
+            <button type="button" class="ms-opt" data-val="Infant or toddler (0–5)"><span class="i">👶</span> Infant or toddler (0–5)</button>
+            <button type="button" class="ms-opt" data-val="Young child (6–12)"><span class="i">🧒</span> Young child (6–12)</button>
+            <button type="button" class="ms-opt" data-val="Teen (13–17)"><span class="i">🧑</span> Teen (13–17)</button>
+            <button type="button" class="ms-opt" data-val="Wherever I'm needed most"><span class="i">🤝</span> Wherever I'm needed most</button>
+          </div>
+        </div>
+
+        <div class="ms-step" data-step="2" hidden>
           <h3>How much time could you give?</h3>
           <p class="sub">Most volunteers give just a few hours a month.</p>
           <div class="ms-opts" data-target="f_time">
@@ -262,7 +274,7 @@
           </div>
         </div>
 
-        <div class="ms-step" data-step="2" hidden>
+        <div class="ms-step" data-step="3" hidden>
           <h3>Where are you?</h3>
           <p class="sub">We're recruiting across the Treasure Valley right now.</p>
           <div class="ms-opts" data-target="f_area">
@@ -274,7 +286,7 @@
           </div>
         </div>
 
-        <div class="ms-step" data-step="3" hidden>
+        <div class="ms-step" data-step="4" hidden>
           <h3>Last step — let's connect</h3>
           <p class="sub">We'll invite you to a free, no-pressure info session over a video call — no travel needed — for volunteers across <span id="lead-region"></span>.</p>
           <div class="row2">
@@ -537,28 +549,33 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script>
-/* multi-step funnel controller — question-first, posts answers into the lead payload */
+/* multi-step funnel controller — question-first with conditional branching; posts answers into the lead payload */
 (function(){
   var form=document.getElementById('ocvForm'); if(!form) return;
   var steps=[].slice.call(form.querySelectorAll('.ms-step'));
-  var total=steps.length;
   var fill=document.getElementById('msFill'), label=document.getElementById('msStepLabel'), back=document.getElementById('msBack');
-  var cur=0;
   var ENGINE='https://procure-lead-engine.dan-fda.workers.dev';
   var sid; try{ sid=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(''+Date.now()+'-'+Math.random().toString(36).slice(2)); }catch(e){ sid=''+Date.now(); }
   var sidEl=document.getElementById('pm_sid'); if(sidEl) sidEl.value=sid;
+  var cur=steps[0];
 
-  function show(i){
-    cur=i;
-    for(var k=0;k<steps.length;k++) steps[k].hidden=(k!==i);
-    if(fill) fill.style.width=Math.round(((i+1)/total)*100)+'%';
-    if(label) label.textContent=(i<total-1)?('Question '+(i+1)+' of '+(total-1)):'Last step';
-    if(back) back.hidden=(i===0);
+  function passes(s){ var cf=s.getAttribute('data-cond-field'); if(!cf) return true; var el=document.getElementById(cf); return !!el && el.value===s.getAttribute('data-cond-val'); }
+  function pathSteps(){ return steps.filter(passes); }
+  function isContact(s){ return !s.querySelector('.ms-opts'); }
+  function nextOf(s){ var i=steps.indexOf(s); for(var j=i+1;j<steps.length;j++){ if(passes(steps[j])) return steps[j]; } return null; }
+  function prevOf(s){ var i=steps.indexOf(s); for(var j=i-1;j>=0;j--){ if(passes(steps[j])) return steps[j]; } return null; }
+  function show(s){
+    cur=s;
+    for(var k=0;k<steps.length;k++) steps[k].hidden=(steps[k]!==s);
+    var p=pathSteps(), pos=p.indexOf(s);
+    if(fill) fill.style.width=Math.round(((pos+1)/p.length)*100)+'%';
+    if(label) label.textContent=isContact(s)?'Last step':('Question '+(pos+1));
+    if(back) back.hidden=(pos<=0);
   }
   function ping(){
     try{
-      var grp=steps[cur].querySelector('.ms-opts');
-      var body=JSON.stringify({session_id:sid, site:'oneconstantvoice.org', fields_reached:cur+1, last_field:grp?grp.getAttribute('data-target'):'contact'});
+      var grp=cur.querySelector('.ms-opts'), p=pathSteps();
+      var body=JSON.stringify({session_id:sid, site:'oneconstantvoice.org', fields_reached:p.indexOf(cur)+1, last_field:grp?grp.getAttribute('data-target'):'contact'});
       if(navigator.sendBeacon){ navigator.sendBeacon(ENGINE+'/partial', new Blob([body],{type:'application/json'})); }
       else { fetch(ENGINE+'/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){}); }
     }catch(e){}
@@ -571,12 +588,13 @@ document.addEventListener('DOMContentLoaded', function(){
       var sib=grp.querySelectorAll('.ms-opt'); for(var s=0;s<sib.length;s++) sib[s].classList.remove('sel');
       this.classList.add('sel');
       var hid=document.getElementById(target); if(hid) hid.value=this.getAttribute('data-val');
+      if(target==='f_help' && this.getAttribute('data-val')!=='Be there for a kid'){ var a=document.getElementById('f_age'); if(a) a.value=''; }
       ping();
-      setTimeout(function(){ if(cur<total-1) show(cur+1); }, 160);
+      setTimeout(function(){ var nx=nextOf(cur); if(nx) show(nx); }, 160);
     }); }
   })(groups[g]); }
-  if(back) back.addEventListener('click', function(e){ e.preventDefault(); if(cur>0) show(cur-1); });
-  show(0);
+  if(back) back.addEventListener('click', function(e){ e.preventDefault(); var pv=prevOf(cur); if(pv) show(pv); });
+  show(steps[0]);
 })();
 </script>
 </body>
