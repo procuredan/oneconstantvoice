@@ -118,6 +118,20 @@
   .lead-card .btn-primary{width:100%;justify-content:center;margin-top:6px}
   .trust-line{font-size:.78rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.4}
   .tcpa{display:block;margin-top:14px;font-size:.68rem;line-height:1.5;color:#9aa3b0}
+  /* multi-step funnel */
+  .ms-prog{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:10px}
+  .ms-prog-fill{height:100%;background:var(--teal);border-radius:999px;width:25%;transition:width .3s ease}
+  .ms-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:.78rem;color:var(--muted);font-weight:600}
+  .ms-back{color:var(--teal-dk);text-decoration:none}
+  .ms-step[hidden]{display:none}
+  .ms-step h3{font-size:1.35rem;margin-bottom:4px}
+  .ms-step p.sub{color:var(--muted);font-size:.92rem;margin-bottom:16px}
+  .ms-opts{display:flex;flex-direction:column;gap:10px}
+  .ms-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--cream);font-family:inherit;font-size:.98rem;font-weight:600;color:var(--navy);cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+  .ms-opt:hover{border-color:var(--teal);background:#fff}
+  .ms-opt:active{transform:scale(.99)}
+  .ms-opt.sel{border-color:var(--teal);background:#e6f6f1}
+  .ms-opt .i{font-size:1.3rem;line-height:1}
   .stats{background:var(--cream);border-bottom:1px solid var(--line)}
   .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:34px 24px;text-align:center}
   .stat .num{font-family:'Fraunces';font-weight:700;font-size:2.2rem;color:var(--teal-dk);line-height:1}
@@ -213,29 +227,69 @@
     </div>
 
     <div class="lead-card" id="start">
-      <h3>Start with a hello</h3>
-      <p class="sub">Tell us a little about you. We'll invite you to a free, no-pressure info session over a video call — no travel needed — for volunteers across <span id="lead-region"></span>.</p>
-      <form data-lead action="https://procure-lead-engine.dan-fda.workers.dev/submit" method="POST">
+      <form data-lead action="https://procure-lead-engine.dan-fda.workers.dev/submit" method="POST" id="ocvForm">
         <input type="hidden" name="lead_source" value="oneconstantvoice.org">
         <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="hidden" name="_redirect" value="https://oneconstantvoice.org/thank-you">
-        <div class="row2">
-          <div class="field"><label>First name</label><input required name="first_name" placeholder="Jordan"></div>
-          <div class="field"><label>Last name</label><input required name="last_name" placeholder="Rivera"></div>
-        </div>
         <input type="hidden" name="name" id="full_name">
-        <div class="field"><label>Email</label><input required type="email" name="email" placeholder="you@email.com"></div>
-        <div class="row2">
-          <div class="field"><label>Phone</label><input required type="tel" name="phone" placeholder="(208) 555-0142" inputmode="tel" pattern="[\d\s\-\(\)\.]{10,20}"></div>
-          <div class="field"><label>ZIP code</label><input required name="zip" placeholder="83702"></div>
+        <input type="hidden" name="pm_sid" id="pm_sid">
+        <input type="hidden" name="motivation" id="f_motivation">
+        <input type="hidden" name="time_commitment" id="f_time">
+        <input type="hidden" name="area" id="f_area">
+
+        <div class="ms-prog"><div class="ms-prog-fill" id="msFill"></div></div>
+        <div class="ms-meta"><span id="msStepLabel">Question 1 of 3</span><a href="#" class="ms-back" id="msBack" hidden>← Back</a></div>
+
+        <div class="ms-step" data-step="0">
+          <h3>What's pulling you toward this?</h3>
+          <p class="sub">There's no wrong answer — it just helps us get to know you.</p>
+          <div class="ms-opts" data-target="f_motivation">
+            <button type="button" class="ms-opt" data-val="I want to be there for a kid"><span class="i">🤝</span> I want to be there for a kid</button>
+            <button type="button" class="ms-opt" data-val="I have some time to give"><span class="i">⏳</span> I have some time to give</button>
+            <button type="button" class="ms-opt" data-val="I've been close to foster care"><span class="i">💛</span> I've been close to foster care</button>
+            <button type="button" class="ms-opt" data-val="My faith or values"><span class="i">🌱</span> My faith or values</button>
+            <button type="button" class="ms-opt" data-val="Just learning for now"><span class="i">🔎</span> Just learning for now</button>
+          </div>
         </div>
-        <div class="field"><label>Why now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea name="message" rows="2" placeholder="A few words…"></textarea></div>
-        <!-- Spam protection: Cloudflare Turnstile (safe/hidden until a sitekey is set) -->
-<div class="cf-turnstile" data-sitekey="" data-size="flexible" style="margin:0 0 12px"></div>
-<script>(function(){var d=document.currentScript.previousElementSibling,k=d&&d.getAttribute('data-sitekey');if(k&&k.indexOf('{{')<0&&k.length>5){var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=s.defer=true;document.head.appendChild(s);}else if(d){d.style.display='none';}})();</script>
-<button class="btn btn-primary" type="submit">Yes, tell me how to help</button>
-        <p class="trust-line">🔒 No spam, no sales list. This connects you with a trusted local children's advocacy program.</p>
-        <span class="tcpa">By submitting, you agree to be contacted by phone, text, or email about volunteering. Consent is not a condition of any service. Message/data rates may apply. See our <a href="/privacy-policy.html" style="color:var(--teal-dk)">Privacy Policy</a> and <a href="/terms.html" style="color:var(--teal-dk)">Terms</a>.</span>
+
+        <div class="ms-step" data-step="1" hidden>
+          <h3>How much time could you give?</h3>
+          <p class="sub">Most volunteers give just a few hours a month.</p>
+          <div class="ms-opts" data-target="f_time">
+            <button type="button" class="ms-opt" data-val="A few hours a month"><span class="i">📅</span> A few hours a month</button>
+            <button type="button" class="ms-opt" data-val="A few hours a week"><span class="i">🗓️</span> A few hours a week</button>
+            <button type="button" class="ms-opt" data-val="Not sure yet"><span class="i">🤔</span> Not sure yet</button>
+          </div>
+        </div>
+
+        <div class="ms-step" data-step="2" hidden>
+          <h3>Where are you?</h3>
+          <p class="sub">We're recruiting across the Treasure Valley right now.</p>
+          <div class="ms-opts" data-target="f_area">
+            <button type="button" class="ms-opt" data-val="Ada County"><span class="i">📍</span> Ada County</button>
+            <button type="button" class="ms-opt" data-val="Boise County"><span class="i">📍</span> Boise County</button>
+            <button type="button" class="ms-opt" data-val="Elmore County"><span class="i">📍</span> Elmore County</button>
+            <button type="button" class="ms-opt" data-val="Valley County"><span class="i">📍</span> Valley County</button>
+            <button type="button" class="ms-opt" data-val="Elsewhere in Idaho"><span class="i">🗺️</span> Elsewhere in Idaho</button>
+          </div>
+        </div>
+
+        <div class="ms-step" data-step="3" hidden>
+          <h3>Last step — let's connect</h3>
+          <p class="sub">We'll invite you to a free, no-pressure info session over a video call — no travel needed — for volunteers across <span id="lead-region"></span>.</p>
+          <div class="row2">
+            <div class="field"><label>First name</label><input required name="first_name" placeholder="Jordan" autocomplete="given-name"></div>
+            <div class="field"><label>Last name</label><input required name="last_name" placeholder="Rivera" autocomplete="family-name"></div>
+          </div>
+          <div class="field"><label>Email</label><input required type="email" name="email" placeholder="you@email.com" autocomplete="email"></div>
+          <div class="field"><label>Phone</label><input required type="tel" name="phone" placeholder="(208) 555-0142" inputmode="tel" autocomplete="tel" pattern="[\d\s\-\(\)\.]{10,20}"></div>
+          <!-- Spam protection: Cloudflare Turnstile (safe/hidden until a sitekey is set) -->
+          <div class="cf-turnstile" data-sitekey="" data-size="flexible" style="margin:0 0 12px"></div>
+          <script>(function(){var d=document.currentScript.previousElementSibling,k=d&&d.getAttribute('data-sitekey');if(k&&k.indexOf('{{')<0&&k.length>5){var s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js';s.async=s.defer=true;document.head.appendChild(s);}else if(d){d.style.display='none';}})();</script>
+          <button class="btn btn-primary" type="submit">Request my info session</button>
+          <p class="trust-line">🔒 No spam, no sales list. This connects you with a trusted local children's advocacy program.</p>
+          <span class="tcpa">By submitting, you agree to be contacted by phone, text, or email about volunteering. Consent is not a condition of any service. Message/data rates may apply. See our <a href="/privacy-policy.html" style="color:var(--teal-dk)">Privacy Policy</a> and <a href="/terms.html" style="color:var(--teal-dk)">Terms</a>.</span>
+        </div>
       </form>
     </div>
   </div>
@@ -481,6 +535,49 @@ document.addEventListener('DOMContentLoaded', function(){
     if(window.gtag) gtag('event','generate_lead',{event_category:'form',event_label:'oneconstantvoice'});
   }); }
 });
+</script>
+<script>
+/* multi-step funnel controller — question-first, posts answers into the lead payload */
+(function(){
+  var form=document.getElementById('ocvForm'); if(!form) return;
+  var steps=[].slice.call(form.querySelectorAll('.ms-step'));
+  var total=steps.length;
+  var fill=document.getElementById('msFill'), label=document.getElementById('msStepLabel'), back=document.getElementById('msBack');
+  var cur=0;
+  var ENGINE='https://procure-lead-engine.dan-fda.workers.dev';
+  var sid; try{ sid=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(''+Date.now()+'-'+Math.random().toString(36).slice(2)); }catch(e){ sid=''+Date.now(); }
+  var sidEl=document.getElementById('pm_sid'); if(sidEl) sidEl.value=sid;
+
+  function show(i){
+    cur=i;
+    for(var k=0;k<steps.length;k++) steps[k].hidden=(k!==i);
+    if(fill) fill.style.width=Math.round(((i+1)/total)*100)+'%';
+    if(label) label.textContent=(i<total-1)?('Question '+(i+1)+' of '+(total-1)):'Last step';
+    if(back) back.hidden=(i===0);
+  }
+  function ping(){
+    try{
+      var grp=steps[cur].querySelector('.ms-opts');
+      var body=JSON.stringify({session_id:sid, site:'oneconstantvoice.org', fields_reached:cur+1, last_field:grp?grp.getAttribute('data-target'):'contact'});
+      if(navigator.sendBeacon){ navigator.sendBeacon(ENGINE+'/partial', new Blob([body],{type:'application/json'})); }
+      else { fetch(ENGINE+'/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){}); }
+    }catch(e){}
+  }
+  var groups=form.querySelectorAll('.ms-opts');
+  for(var g=0; g<groups.length; g++){ (function(grp){
+    var target=grp.getAttribute('data-target');
+    var opts=grp.querySelectorAll('.ms-opt');
+    for(var o=0;o<opts.length;o++){ opts[o].addEventListener('click', function(){
+      var sib=grp.querySelectorAll('.ms-opt'); for(var s=0;s<sib.length;s++) sib[s].classList.remove('sel');
+      this.classList.add('sel');
+      var hid=document.getElementById(target); if(hid) hid.value=this.getAttribute('data-val');
+      ping();
+      setTimeout(function(){ if(cur<total-1) show(cur+1); }, 160);
+    }); }
+  })(groups[g]); }
+  if(back) back.addEventListener('click', function(e){ e.preventDefault(); if(cur>0) show(cur-1); });
+  show(0);
+})();
 </script>
 </body>
 </html>
