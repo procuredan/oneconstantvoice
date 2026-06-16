@@ -567,13 +567,12 @@ document.addEventListener('DOMContentLoaded', function(){
     if(prog) prog.style.display='none'; if(meta) meta.style.display='none';
     if(decline) decline.hidden=false;
   }
-  function ping(field){
-    try{
-      var body=JSON.stringify({session_id:sid, site:'oneconstantvoice.org', fields_reached:cur+1, last_field:field||'step'});
-      if(navigator.sendBeacon){ navigator.sendBeacon(ENGINE+'/partial', new Blob([body],{type:'application/json'})); }
-      else { fetch(ENGINE+'/partial',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true}).catch(function(){}); }
-    }catch(e){}
+  function send(fields, field){
+    // No Content-Type header on purpose: keeps it a CORS-safelisted request so the cross-origin
+    // ping is never dropped. The worker parses the JSON body regardless. (Matches the factory.)
+    try{ fetch(ENGINE+'/partial',{method:'POST',body:JSON.stringify({session_id:sid, site:'oneconstantvoice.org', fields_reached:fields, last_field:field||'step'}),keepalive:true}).catch(function(){}); }catch(e){}
   }
+  function ping(field){ send(cur+1, field); }
   var groups=form.querySelectorAll('.ms-opts');
   for(var g=0; g<groups.length; g++){ (function(grp){
     var target=grp.getAttribute('data-target');
@@ -591,6 +590,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(rec) rec.addEventListener('click', function(){ var y=document.getElementById('f_interest'); if(y) y.value='Yes'; show(1); });
   if(back) back.addEventListener('click', function(e){ e.preventDefault(); if(cur>0) show(cur-1); });
   show(0);
+  send(0, 'landing'); // one ping per visit so we capture everyone who reaches the page
 })();
 </script>
 </body>
